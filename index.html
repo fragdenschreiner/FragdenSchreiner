@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fragdenschreiner.de</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f4f4f4;
+    }
+    form {
+      background: white;
+      padding: 2em;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 0.5em 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    button {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1ebe5d;
+    }
+  </style>
+</head>
+<body>
+  <form onsubmit="sendToWhatsApp(); return false;">
+    <h2>Frag den Schreiner</h2>
+    <p>Stell mir deine Frage oder buche eine Beratung – ganz einfach per WhatsApp.</p>
+    <input type="text" id="name" placeholder="Dein Name*" required>
+    <input type="email" id="email" placeholder="E-Mail*" required>
+    <input type="text" id="telefon" placeholder="Telefonnummer*" required>
+    <input type="text" id="plzort" placeholder="PLZ / Ort*" required>
+    <textarea id="frage" rows="4" placeholder="Worum geht es?*" required></textarea>
+    <select id="paket" required>
+      <option value="">Beratungspaket wählen*</option>
+      <option value="Kurze Frage (kostenlos)">Kurze Frage (kostenlos)</option>
+      <option value="Kleine Beratung – 39 €">Kleine Beratung – 39 €</option>
+      <option value="Normale Beratung – 59 €">Normale Beratung – 59 €</option>
+      <option value="Intensive Beratung – 79 €">Intensive Beratung – 79 €</option>
+      <option value="Projektbegleitung – 119 €">Projektbegleitung – 119 €</option>
+      <option value="Kostenschätzung – 49 €">Kostenschätzung – 49 €</option>
+      <option value="Intensive Kostenschätzung – 89 €">Intensive Kostenschätzung – 89 €</option>
+      <option value="Vor-Ort-Termin (nach Absprache)">Vor-Ort-Termin (nach Absprache)</option>
+    </select>
+    <select id="video">
+      <option value="Nein">Videoberatung gewünscht? Nein</option>
+      <option value="Ja">Videoberatung gewünscht? Ja</option>
+    </select>
+    <button type="submit">Anfrage senden via WhatsApp</button>
+  </form>
+
+  <script>
+    function sendToWhatsApp() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const telefon = document.getElementById("telefon").value;
+      const plzort = document.getElementById("plzort").value;
+      const frage = document.getElementById("frage").value;
+      const paket = document.getElementById("paket").value;
+      const video = document.getElementById("video").value;
+
+      const msg = `Anfrage über fragdenschreiner.de
+Name: ${name}
+Telefon: ${telefon}
+E-Mail: ${email}
+PLZ / Ort: ${plzort}
+Frage: ${frage}
+Beratungspaket: ${paket}
+Videoberatung: ${video}
+
+Ich bin einverstanden mit der kostenpflichtigen Beratung und freue mich auf deine Rückmeldung!`;
+
+      const encodedMsg = encodeURIComponent(msg);
+      const whatsappURL = `https://wa.me/491713015467?text=${encodedMsg}`;
+      window.open(whatsappURL, "_blank");
+    }
+  </script>
+</body>
+</html>
